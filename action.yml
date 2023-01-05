@@ -1,5 +1,5 @@
-name: 'Upload File Action with Custom Headers'
-description: 'upload file'
+name: 'Upload Directory Action with Custom Headers'
+description: 'upload Directory'
 author: 'esaminu'
 branding:
   icon: arrow-right-circle
