@@ -3,13 +3,13 @@ const FormData = require('form-data');
 const {promisify} = require('util');
 const { getFilesFromPath } = require('files-from-path')
 
-async function buildForm(forms, fileForms) {
+async function buildForm(forms, directory) {
 
   const form = new FormData();
     for (const [key, value] of forms) {
         form.append(key, value);
     }
-    for await (const {name, stream} of getFilesFromPath(fileForms)) {
+    for await (const {name, stream} of getFilesFromPath(directory)) {
         form.append(name, stream);
     }
     console.log(form);
@@ -29,7 +29,7 @@ async function getFormHeaders (form, customHeaders) {
 async function uploadFiles(url, forms, directory, customHeaders) {
     console.log(url);
     console.log(forms);
-    console.log(fileForms);
+    console.log(directory);
     const form = buildForm(forms, directory);
     const headers = await getFormHeaders(form, customHeaders);
     console.log(headers);
