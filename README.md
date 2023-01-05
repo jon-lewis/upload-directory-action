@@ -1,19 +1,19 @@
-# Upload File Action
+# Upload Directory Action
 
- Upload file via http request. This is a Js action. Use axios to send and send requests. There is no limit on file size.
+ Upload directory via http request. This is a Js action. Use axios to send and send requests. There is no limit on file size.
 
 
 ## Usage
 
-This is an example of upload apk to pgyer.com(蒲公英网站)
+This is an example of upload dist directory
 ```yaml
- - name: Upload File
+ - name: Upload Directory
    id: upload
-   uses: JantHsueh/upload-file-action@master
+   uses: esaminu/upload-directory-action@master
    with:
     url: https://www.pgyer.com/apiv2/app/upload
     forms: '{"_api_key":"${{ secrets.pgyer_key }}","buildInstallType":3}'
-    fileForms: '{"file":"app/build/outputs/apk/release/app-release.apk"}'
+    directory: dist
 ```
 
 
@@ -23,7 +23,7 @@ This is an example of upload apk to pgyer.com(蒲公英网站)
 | ---------- | -------- | ------------------------------------------------------------ |
 | `url`      | `true`   | Web request URL endpoint                                     |
 | `forms`  | `false`  | Data to be transmitted,such as key, pwd, etc. Use json format |
-| `fileForms`  | `false`  | Files to be transferred,such as 'file','image' etc. Use json format |
+| `directory`  | `false`  | directory to be transferred |
 
 
 ## Outputs

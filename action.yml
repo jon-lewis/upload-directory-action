@@ -15,8 +15,8 @@ inputs:
   forms:
     description: Data to be transmitted,such as key, pwd, etc. Use json format
     required: false
-  fileForms:
-    description: Files to be transferred,such as 'file','image' etc. Use json format
+  directory:
+    description: Directory to be transferred,such as frontend/dist
     required: false
   customHeaders:
     description: Custom headers to append to the request

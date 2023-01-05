@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const uploadFile = require('./uploadFile');
+const uploadFile = require('./uploadFiles');
 
 async function main() {
   try {
@@ -9,15 +9,13 @@ async function main() {
     const method = methodInput.toLowerCase();
     const forms = core.getInput('forms');
     const formsMap = jsonToMap(forms);
-    const fileForms = core.getInput('fileForms');
+    const directory = core.getInput('directory');
     const customHeaders = JSON.parse(core.getInput('customHeaders') || '{}');
-    const fileFormsMap = jsonToMap(fileForms);
 
     console.log(forms);
-    console.log(fileForms);
 
     // http request to external API
-    const response = await uploadFile(url, formsMap, fileFormsMap, customHeaders);
+    const response = await uploadFile(url, formsMap, directory, customHeaders);
 
     const statusCode = response.status;
     const data = response.data;

@@ -1,16 +1,16 @@
 const axios = require('axios');
 const FormData = require('form-data');
-const fs = require('fs');
 const {promisify} = require('util');
+const { getFilesFromPath } = require('files-from-path')
 
-function buildForm(forms, fileForms) {
+async function buildForm(forms, fileForms) {
 
   const form = new FormData();
     for (const [key, value] of forms) {
         form.append(key, value);
     }
-    for (const [key, value] of fileForms) {
-        form.append(key, fs.createReadStream(value));
+    for await (const {name, stream} of getFilesFromPath(fileForms)) {
+        form.append(name, stream);
     }
     console.log(form);
 
@@ -26,16 +26,16 @@ async function getFormHeaders (form, customHeaders) {
   }
 }
 
-async function uploadFile(url, forms, fileForms, customHeaders) {
+async function uploadFiles(url, forms, directory, customHeaders) {
     console.log(url);
     console.log(forms);
     console.log(fileForms);
-    const form = buildForm(forms, fileForms);
+    const form = buildForm(forms, directory);
     const headers = await getFormHeaders(form, customHeaders);
     console.log(headers);
     return axios.post(url, form, {headers: headers,maxContentLength: Infinity})
 }
 
 
-module.exports = uploadFile;
+module.exports = uploadFiles;
 
