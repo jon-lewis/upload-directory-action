@@ -7453,7 +7453,7 @@ module.exports = {
 const axios = __nccwpck_require__(6805);
 const FormData = __nccwpck_require__(9346);
 const {promisify} = __nccwpck_require__(3837);
-const { getFilesFromPath } = __nccwpck_require__(3881)
+const { filesFromPath } = __nccwpck_require__(3881)
 
 async function buildForm(forms, directory) {
 
@@ -7461,7 +7461,8 @@ async function buildForm(forms, directory) {
     for (const [key, value] of forms) {
         form.append(key, value);
     }
-    for await (const {name, stream} of getFilesFromPath(directory)) {
+    for await (const {name, stream} of filesFromPath(directory)) {
+        console.log(`adding file: ${name}`)
         form.append(name, stream);
     }
     console.log(form);

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const FormData = require('form-data');
 const {promisify} = require('util');
-const { getFilesFromPath } = require('files-from-path')
+const { filesFromPath } = require('files-from-path')
 
 async function buildForm(forms, directory) {
 
@@ -9,7 +9,8 @@ async function buildForm(forms, directory) {
     for (const [key, value] of forms) {
         form.append(key, value);
     }
-    for await (const {name, stream} of getFilesFromPath(directory)) {
+    for await (const {name, stream} of filesFromPath(directory)) {
+        console.log(`adding file: ${name}`)
         form.append(name, stream);
     }
     console.log(form);
