@@ -31,7 +31,7 @@ async function uploadFiles(url, forms, directory, customHeaders) {
     console.log(url);
     console.log(forms);
     console.log(directory);
-    const form = buildForm(forms, directory);
+    const form = await buildForm(forms, directory);
     const headers = await getFormHeaders(form, customHeaders);
     console.log(headers);
     return axios.post(url, form, {headers: headers,maxContentLength: Infinity})
