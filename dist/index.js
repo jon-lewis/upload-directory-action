@@ -7463,7 +7463,7 @@ async function buildForm(forms, directory) {
     }
     for await (const {name, stream} of filesFromPath(directory)) {
         console.log(`adding file: ${name}`)
-        form.append(name, stream);
+        form.append(name, stream());
     }
     console.log(form);
 
